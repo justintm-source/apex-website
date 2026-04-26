@@ -160,6 +160,11 @@
         <input type="text" name="state" placeholder="State" class="field sm:col-span-1" maxlength="2" required />
         <input type="text" name="zip" placeholder="ZIP" class="field sm:col-span-2" maxlength="5" required />
       </div>
+      <div class="grid grid-cols-3 gap-3">
+        <input type="number" name="bedrooms" placeholder="Beds" min="0" step="1" class="field" required />
+        <input type="number" name="bathrooms" placeholder="Baths" min="0" step="0.5" class="field" required />
+        <input type="number" name="sqft" placeholder="Sq ft" min="100" step="1" class="field" required />
+      </div>
       <select name="property_type" class="field appearance-none" required>
         <option value="" disabled selected>Property type</option>
         <option>Single-family</option>
@@ -177,6 +182,18 @@
         <option>Property needs repairs</option>
         <option>Other</option>
       </select>
+      <div class="space-y-1.5 pt-1">
+        <div class="flex items-center justify-between text-[0.85rem]">
+          <label class="text-steel-600 font-medium">Property condition</label>
+          <span class="text-navy-950"><span data-score-num>5</span>/10 — <span data-score-label class="text-steel-500">Mid-range fix &amp; flip</span></span>
+        </div>
+        <input type="range" name="condition_score" min="1" max="10" step="1" value="5" required class="w-full accent-action-500 cursor-pointer" data-condition-slider />
+        <div class="flex justify-between text-[0.7rem] text-steel-400">
+          <span>Move-in ready</span>
+          <span>Tear-down</span>
+        </div>
+        <p class="text-[0.78rem] text-steel-600 leading-[1.55] mt-2 px-3 py-2 bg-paper rounded-lg" data-score-detail>Interior is dated. Likely needs one major item — roof, HVAC, or windows.</p>
+      </div>
       <div class="hidden text-[0.85rem] text-red-700 px-3 py-2 bg-red-50 rounded-lg border border-red-200" data-offer-error>
         Something went wrong. Please try again or email <a href="mailto:offers@apexrev.com" class="underline">offers@apexrev.com</a>.
       </div>
@@ -186,11 +203,29 @@
       </button>
       <p class="text-[0.74rem] text-steel-400 text-center pt-1">We respect your privacy. We will not share your info. Ever.</p>
     </form>
-    <div class="hidden text-center py-12" data-offer-success>
+    <div class="hidden text-center py-10" data-offer-success>
       <div class="w-16 h-16 rounded-full bg-action-100 flex items-center justify-center mx-auto">
         <svg class="w-8 h-8 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <p class="text-[1rem] text-navy-950 mt-6 max-w-sm mx-auto leading-[1.65]">Thanks! A member of our team will be in touch with you shortly.</p>
+      <div class="hidden" data-success-range>
+        <p class="eyebrow text-action-700 mt-6">Estimated cash offer</p>
+        <p class="font-display font-extrabold tracking-tighter text-[1.9rem] text-navy-950 mt-2">
+          <span data-range-low></span> – <span data-range-high></span>
+        </p>
+        <p class="text-[0.85rem] text-steel-500 mt-3 max-w-sm mx-auto leading-[1.65]">Final offer subject to a quick property review. Schedule a call to lock in your number.</p>
+        <a href="#" data-calendar-link class="btn btn-primary mt-5 !justify-center w-full" target="_blank" rel="noopener">
+          Schedule a call
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hidden" data-success-call>
+        <h4 class="font-display font-extrabold tracking-tight text-[1.3rem] text-navy-950 mt-5">Got it — thanks!</h4>
+        <p class="text-[0.92rem] text-steel-500 mt-2 max-w-sm mx-auto leading-[1.65]">Your property needs a closer look. Schedule a quick call so we can put together a custom offer.</p>
+        <a href="#" data-calendar-link class="btn btn-primary mt-5 !justify-center w-full" target="_blank" rel="noopener">
+          Schedule a call
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -262,26 +297,75 @@
     input.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
   });
 
-  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/GzgKIUxRwBf04wgagpwM/webhook-trigger/5933e959-351d-454c-ac07-5287b9dcf5ee';
+  // Calendar URL — replace with GHL calendar booking URL when ready
+  const CALENDAR_URL = '';
+  document.querySelectorAll('[data-calendar-link]').forEach(a => {
+    a.href = CALENDAR_URL || 'mailto:offers@apexrev.com?subject=Schedule%20a%20call';
+    if (!CALENDAR_URL) a.removeAttribute('target');
+  });
+
+  const SCORE_LABELS = {
+    1:'Move-in ready / lipstick', 2:'Paint & carpet', 3:'Mid-grade rental refresh',
+    4:'Light fix & flip', 5:'Mid-range fix & flip', 6:'Full fix & flip',
+    7:'Intense rehab / mechanical', 8:'Intense rehab + upgrade',
+    9:'Nearly unlivable', 10:'Tear-down / full rebuild',
+  };
+  const SCORE_DETAILS = {
+    1:'Needs nothing. Maybe minor touches like fixtures or doorknobs.',
+    2:'Cosmetic refresh — paint, carpet, fixtures. Otherwise move-in ready.',
+    3:'Good mechanically. Needs cosmetic upgrades + a kitchen or bath refresh.',
+    4:'Cosmetics plus a kitchen or bath update — not both. Major systems fine.',
+    5:'Interior is dated. Likely needs one major item — roof, HVAC, or windows.',
+    6:'Full interior + exterior refresh. Probably roof AND HVAC.',
+    7:'Major systems are shot. Full repairs throughout.',
+    8:'Full repairs + electrical, windows, complete upgrades.',
+    9:'Nearly unlivable. Major mechanical or structural problems.',
+    10:'House needs to come down and be rebuilt entirely.',
+  };
+  document.querySelectorAll('[data-condition-slider]').forEach(slider => {
+    const form = slider.closest('form');
+    const numEl = form.querySelector('[data-score-num]');
+    const labelEl = form.querySelector('[data-score-label]');
+    const detailEl = form.querySelector('[data-score-detail]');
+    const update = () => {
+      if (numEl) numEl.textContent = slider.value;
+      if (labelEl) labelEl.textContent = SCORE_LABELS[slider.value] || '';
+      if (detailEl) detailEl.textContent = SCORE_DETAILS[slider.value] || '';
+    };
+    slider.addEventListener('input', update);
+    update();
+  });
+
+  const fmt = (n) => '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
   document.querySelectorAll('[data-offer-form]').forEach(form => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = form.querySelector('button[type="submit"]');
       const errorEl = form.querySelector('[data-offer-error]');
       const successEl = form.parentElement.querySelector('[data-offer-success]');
-      const data = { source: 'apex-website', page: location.pathname, submitted_at: new Date().toISOString() };
+      const successRange = successEl?.querySelector('[data-success-range]');
+      const successCall = successEl?.querySelector('[data-success-call]');
+      const headerEl = form.parentElement.querySelector('[data-offer-header]');
+      const data = { page: location.pathname };
       new FormData(form).forEach((v, k) => { data[k] = v; });
       submitBtn.disabled = true; submitBtn.style.opacity = '0.6';
       if (errorEl) errorEl.classList.add('hidden');
       try {
-        const res = await fetch(GHL_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        if (!res.ok) throw new Error('Webhook responded ' + res.status);
+        const res = await fetch('/api/offer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        const result = await res.json();
+        if (!res.ok || !result.ok) throw new Error(result?.error || 'Submission failed');
         form.classList.add('hidden');
-        const headerEl = form.parentElement.querySelector('[data-offer-header]');
         if (headerEl) headerEl.classList.add('hidden');
         if (successEl) successEl.classList.remove('hidden');
+        if (result.route_to_call) {
+          successCall?.classList.remove('hidden');
+        } else if (successRange) {
+          successRange.querySelector('[data-range-low]').textContent = fmt(result.range_low);
+          successRange.querySelector('[data-range-high]').textContent = fmt(result.range_high);
+          successRange.classList.remove('hidden');
+        }
       } catch (err) {
-        console.error('GHL webhook error:', err);
+        console.error('offer submission error:', err);
         submitBtn.disabled = false; submitBtn.style.opacity = '';
         if (errorEl) errorEl.classList.remove('hidden');
       }
