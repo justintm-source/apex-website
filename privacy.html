@@ -236,12 +236,14 @@
     <button type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-steel-400 hover:text-navy-950 hover:bg-paper transition-colors" data-close-modal aria-label="Close">
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
-    <div class="flex items-center gap-2 text-action-600">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-      <span class="eyebrow text-action-700">No obligation · 24-hr response</span>
+    <div data-offer-header>
+      <div class="flex items-center gap-2 text-action-600">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="eyebrow text-action-700">No obligation · 24-hr response</span>
+      </div>
+      <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
+      <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll send back a fair, written cash offer within 24 hours.</p>
     </div>
-    <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
-    <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll send back a fair, written cash offer within 24 hours.</p>
 
     <form class="mt-5 space-y-3" data-offer-form>
       <div class="grid grid-cols-2 gap-3">
@@ -287,12 +289,11 @@
       </button>
       <p class="text-[0.74rem] text-steel-400 text-center pt-1">We respect your privacy. We will not share your info. Ever.</p>
     </form>
-    <div class="hidden text-center py-8" data-offer-success>
-      <div class="w-14 h-14 rounded-full bg-action-100 flex items-center justify-center mx-auto">
-        <svg class="w-7 h-7 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <div class="hidden text-center py-12" data-offer-success>
+      <div class="w-16 h-16 rounded-full bg-action-100 flex items-center justify-center mx-auto">
+        <svg class="w-8 h-8 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <h4 class="font-display font-extrabold tracking-tight text-[1.3rem] text-navy-950 mt-5">Got it — thanks!</h4>
-      <p class="text-[0.92rem] text-steel-500 mt-2 max-w-sm mx-auto leading-[1.65]">We'll review the property and send you a written offer within 24 hours.</p>
+      <p class="text-[1rem] text-navy-950 mt-6 max-w-sm mx-auto leading-[1.65]">Thanks! A member of our team will be in touch with you shortly.</p>
     </div>
   </div>
 </div>
@@ -396,6 +397,8 @@
         const res = await fetch(GHL_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
         if (!res.ok) throw new Error('Webhook responded ' + res.status);
         form.classList.add('hidden');
+        const headerEl = form.parentElement.querySelector('[data-offer-header]');
+        if (headerEl) headerEl.classList.add('hidden');
         if (successEl) successEl.classList.remove('hidden');
       } catch (err) {
         console.error('GHL webhook error:', err);
