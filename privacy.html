@@ -243,28 +243,32 @@
     <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
     <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll send back a fair, written cash offer within 24 hours.</p>
 
-    <form class="mt-5 space-y-3" onsubmit="event.preventDefault();">
+    <form class="mt-5 space-y-3" data-offer-form>
       <div class="grid grid-cols-2 gap-3">
-        <input type="text" placeholder="First name" class="field" required />
-        <input type="text" placeholder="Last name" class="field" required />
+        <input type="text" name="first_name" placeholder="First name" class="field" required />
+        <input type="text" name="last_name" placeholder="Last name" class="field" required />
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <input type="email" name="email" placeholder="Email" class="field" required />
+        <input type="tel" name="phone" placeholder="Phone" class="field" required />
       </div>
       <div class="relative" data-address-autocomplete>
-        <input type="text" placeholder="Property address" class="field" autocomplete="off" data-address-input required />
+        <input type="text" name="property_address" placeholder="Property address" class="field" autocomplete="off" data-address-input required />
         <div class="absolute left-0 right-0 top-full mt-1 bg-white rounded-xl shadow-[0_20px_40px_-12px_rgba(5,13,26,0.25)] ring-1 ring-ink/10 hidden z-10 max-h-72 overflow-y-auto" data-address-suggestions></div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-6 gap-3">
-        <input type="text" placeholder="City" class="field sm:col-span-3" required />
-        <input type="text" placeholder="State" class="field sm:col-span-1" maxlength="2" required />
-        <input type="text" placeholder="ZIP" class="field sm:col-span-2" maxlength="5" required />
+        <input type="text" name="city" placeholder="City" class="field sm:col-span-3" required />
+        <input type="text" name="state" placeholder="State" class="field sm:col-span-1" maxlength="2" required />
+        <input type="text" name="zip" placeholder="ZIP" class="field sm:col-span-2" maxlength="5" required />
       </div>
-      <select class="field appearance-none" required>
+      <select name="property_type" class="field appearance-none" required>
         <option value="" disabled selected>Property type</option>
         <option>Single-family</option>
         <option>Multi-family</option>
         <option>Condo / Townhome</option>
         <option>Land</option>
       </select>
-      <select class="field appearance-none" required>
+      <select name="reason_for_selling" class="field appearance-none" required>
         <option value="" disabled selected>Reason for selling</option>
         <option>Inherited property</option>
         <option>Divorce</option>
@@ -274,12 +278,22 @@
         <option>Property needs repairs</option>
         <option>Other</option>
       </select>
+      <div class="hidden text-[0.85rem] text-red-700 px-3 py-2 bg-red-50 rounded-lg border border-red-200" data-offer-error>
+        Something went wrong. Please try again or email <a href="mailto:offers@apexrev.com" class="underline">offers@apexrev.com</a>.
+      </div>
       <button type="submit" class="btn btn-primary w-full !justify-center mt-2">
         Get My Offer
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </button>
       <p class="text-[0.74rem] text-steel-400 text-center pt-1">We respect your privacy. We will not share your info. Ever.</p>
     </form>
+    <div class="hidden text-center py-8" data-offer-success>
+      <div class="w-14 h-14 rounded-full bg-action-100 flex items-center justify-center mx-auto">
+        <svg class="w-7 h-7 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h4 class="font-display font-extrabold tracking-tight text-[1.3rem] text-navy-950 mt-5">Got it — thanks!</h4>
+      <p class="text-[0.92rem] text-steel-500 mt-2 max-w-sm mx-auto leading-[1.65]">We'll review the property and send you a written offer within 24 hours.</p>
+    </div>
   </div>
 </div>
 
@@ -365,6 +379,30 @@
     });
     document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) hide(); });
     input.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  });
+
+  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/GzgKIUxRwBf04wgagpwM/webhook-trigger/5933e959-351d-454c-ac07-5287b9dcf5ee';
+  document.querySelectorAll('[data-offer-form]').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const errorEl = form.querySelector('[data-offer-error]');
+      const successEl = form.parentElement.querySelector('[data-offer-success]');
+      const data = { source: 'apex-website', page: location.pathname, submitted_at: new Date().toISOString() };
+      new FormData(form).forEach((v, k) => { data[k] = v; });
+      submitBtn.disabled = true; submitBtn.style.opacity = '0.6';
+      if (errorEl) errorEl.classList.add('hidden');
+      try {
+        const res = await fetch(GHL_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (!res.ok) throw new Error('Webhook responded ' + res.status);
+        form.classList.add('hidden');
+        if (successEl) successEl.classList.remove('hidden');
+      } catch (err) {
+        console.error('GHL webhook error:', err);
+        submitBtn.disabled = false; submitBtn.style.opacity = '';
+        if (errorEl) errorEl.classList.remove('hidden');
+      }
+    });
   });
 })();
 </script>
