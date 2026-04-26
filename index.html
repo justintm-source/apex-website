@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Apex Real Estate Ventures — We Buy Houses in As-Is Condition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          display: ['Montserrat', 'Inter', 'sans-serif'],
+          serif: ['Fraunces', 'Georgia', 'serif'],
+        },
+        colors: {
+          navy:    { 50:'#F3F5F8', 100:'#E4E8EF', 200:'#C1CAD7', 300:'#8C9BB2', 400:'#566A89', 500:'#334863', 600:'#1F3453', 700:'#132542', 800:'#0B1A33', 900:'#081426', 950:'#050D1A' },
+          trust:   { 50:'#EEF4FC', 100:'#D7E4F7', 200:'#AFC8EE', 300:'#7FA6DF', 400:'#4F80CB', 500:'#2E5CAB', 600:'#244A8E', 700:'#1D3C73', 800:'#17305C', 900:'#122548' },
+          action:  { 50:'#E9FAF2', 100:'#CCF2DE', 200:'#98E5BD', 300:'#5CD496', 400:'#2EB875', 500:'#1E9E60', 600:'#15814D', 700:'#12683E', 800:'#0F5333', 900:'#0C3F27' },
+          steel:   { 50:'#F1F3F6', 100:'#DFE3EA', 200:'#BAC3D0', 300:'#8E9AAB', 400:'#66738A', 500:'#4A5A6B', 600:'#394655', 700:'#2C3644', 800:'#1F2832', 900:'#141A22' },
+          paper:   '#F6F4EE',
+          sand:    '#EEE8DA',
+          ink:     '#050D1A',
+        },
+        letterSpacing: { tightest: '-0.04em', tighter: '-0.03em' },
+        boxShadow: {
+          'card': '0 1px 2px rgba(8,20,38,0.04), 0 8px 24px -12px rgba(8,20,38,0.12)',
+          'cardHover': '0 4px 8px rgba(8,20,38,0.06), 0 20px 40px -16px rgba(8,20,38,0.25)',
+          'navy': '0 20px 50px -20px rgba(8,20,38,0.45), 0 6px 20px -10px rgba(46,92,171,0.25)',
+          'action': '0 10px 30px -10px rgba(30,158,96,0.45), 0 2px 6px rgba(15,83,51,0.15)',
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #081426; background: #F6F4EE;
+    -webkit-font-smoothing: antialiased; line-height: 1.7;
+  }
+  .font-display { font-family: 'Montserrat', 'Inter', sans-serif; }
+  .font-serif-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; font-feature-settings: "ss01" 1; }
+  h1,h2,h3,h4 { line-height: 1.08; }
+
+  .noise-dark {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.15 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.6; mix-blend-mode: multiply;
+  }
+  .noise {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.45; mix-blend-mode: overlay;
+  }
+
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .display { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.035em; }
+  .h-serif { font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-style: italic; letter-spacing: -0.02em; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    border-radius: 999px;
+    transition: transform 220ms cubic-bezier(0.22,1,0.36,1), box-shadow 220ms cubic-bezier(0.22,1,0.36,1), background-color 180ms linear, color 180ms linear;
+  }
+  .btn:focus-visible { outline: 2px solid #2EB875; outline-offset: 3px; }
+  .btn-primary {
+    background: #1E9E60; color: #fff;
+    box-shadow: 0 10px 30px -10px rgba(30,158,96,0.55), 0 2px 6px rgba(12,63,39,0.2), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #15814D; box-shadow: 0 18px 36px -12px rgba(30,158,96,0.6), 0 3px 8px rgba(12,63,39,0.25), inset 0 1px 0 rgba(255,255,255,0.22); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: transparent; color: #081426; border: 1px solid rgba(8,20,38,0.16); }
+  .btn-ghost:hover { background: #081426; color: #fff; border-color: #081426; transform: translateY(-2px); }
+  .btn-ghost-light { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.28); }
+  .btn-ghost-light:hover { background: #fff; color: #081426; border-color: #fff; transform: translateY(-2px); }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat;
+    transition: background-size 280ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .link-underline:hover { background-size: 100% 1px; }
+
+  .card {
+    background: #fff; border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(8,20,38,0.04), 0 8px 24px -12px rgba(8,20,38,0.12);
+    border: 1px solid rgba(8,20,38,0.05);
+    transition: transform 320ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(8,20,38,0.06), 0 20px 40px -16px rgba(8,20,38,0.25); }
+
+  .hero-bg {
+    background:
+      radial-gradient(60% 60% at 85% 10%, rgba(46,92,171,0.35), transparent 60%),
+      radial-gradient(45% 50% at 10% 90%, rgba(46,92,171,0.25), transparent 65%),
+      radial-gradient(80% 60% at 50% 120%, rgba(30,158,96,0.18), transparent 70%),
+      linear-gradient(180deg, #050D1A 0%, #081426 55%, #0B1A33 100%);
+  }
+
+  .section-heading { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; }
+
+  .marquee { display: flex; gap: 4rem; animation: scroll 42s linear infinite; width: max-content; }
+  @keyframes scroll { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .num {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #081426 0%, #17305C 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .process-line {
+    position:absolute; top:34px; left:calc(16.66% + 30px); right:calc(16.66% + 30px);
+    height:2px;
+    background-image: linear-gradient(90deg, rgba(8,20,38,0.25) 50%, transparent 50%);
+    background-size: 10px 2px;
+  }
+
+  .field {
+    width:100%; background: #fff;
+    border: 1px solid rgba(8,20,38,0.12); border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #081426;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .field::placeholder { color: rgba(8,20,38,0.4); }
+  .field:focus { outline: none; border-color: #2E5CAB; box-shadow: 0 0 0 4px rgba(46,92,171,0.12); }
+
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { transition: transform 240ms cubic-bezier(0.22,1,0.36,1); }
+  details summary::-webkit-details-marker { display:none; }
+
+  .tile-divide > * + * { border-left: 1px solid rgba(8,20,38,0.08); }
+  @media (max-width: 768px) { .tile-divide > * + * { border-left: 0; border-top: 1px solid rgba(8,20,38,0.08); } }
+
+  /* Reason chip (dark section checklist) */
+  .reason-chip {
+    display:flex; align-items:center; gap:12px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+  }
+  .reason-chip:hover { background: rgba(255,255,255,0.08); border-color: rgba(46,92,171,0.4); transform: translateY(-2px); }
+  .reason-chip .dot {
+    flex-shrink:0; width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(46,92,171,0.18);
+    color: #5CD496;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+
+  /* Comparison */
+  .compare-card {
+    border-radius: 20px; overflow: hidden;
+    transition: transform 320ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .compare-card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(8,20,38,0.06), 0 20px 40px -16px rgba(8,20,38,0.25); }
+  .compare-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.96rem; font-weight: 500;
+  }
+  .compare-row:last-child { border-bottom: 0; }
+  .x-circle, .ok-circle {
+    flex-shrink: 0; width: 26px; height: 26px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .x-circle { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+  .ok-circle { background: #2EB875; color: #fff; box-shadow: 0 4px 10px -2px rgba(46,184,117,0.5); }
+
+  .option-card {
+    background: #fff; border: 1px solid rgba(8,20,38,0.06); border-radius: 20px;
+    padding: 36px 28px;
+    transition: transform 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms ease;
+    box-shadow: 0 1px 2px rgba(8,20,38,0.04), 0 8px 24px -12px rgba(8,20,38,0.10);
+  }
+  .option-card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(8,20,38,0.06), 0 20px 40px -16px rgba(8,20,38,0.22); }
+  .option-card.featured {
+    background: linear-gradient(180deg, #081426 0%, #17305C 100%);
+    color: #fff; border-color: transparent;
+    box-shadow: 0 30px 60px -20px rgba(8,20,38,0.55), 0 8px 20px -10px rgba(46,92,171,0.45);
+  }
+  .option-card.featured .opt-icon { background: rgba(46,184,117,0.15); color: #5CD496; }
+  .option-card .opt-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: rgba(46,92,171,0.1); color: #2E5CAB;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  .badge-best {
+    display:inline-block;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.65rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(46,184,117,0.2); color: #5CD496;
+    border: 1px solid rgba(46,184,117,0.4);
+  }
+
+  /* Solution checklist */
+  .sol-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(8,20,38,0.06); }
+  .sol-row:last-child { border-bottom: 0; }
+  .sol-check {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(180deg, #2EB875, #1E9E60); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px -2px rgba(30,158,96,0.45);
+    margin-top: 2px;
+  }
+
+  /* Star color */
+  .stars { display:inline-flex; gap:2px; color: #F0B400; }
+  .stars svg { width: 16px; height: 16px; fill: currentColor; }
+
+  a:focus-visible { outline: 2px solid #2EB875; outline-offset: 3px; border-radius: 2px; }
+</style>
+</head>
+<body class="bg-paper text-navy-950 antialiased">
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 pt-5">
+    <nav class="flex items-center justify-between gap-6 rounded-full pl-5 pr-3 py-3 bg-white/85 backdrop-blur-md border border-navy-950/5 shadow-[0_8px_30px_-12px_rgba(8,20,38,0.18)]">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="apex_brand_assets/apex-logo.jpg" alt="Apex Real Estate Ventures" class="h-9 w-9 rounded-lg object-contain bg-white" />
+        <div class="font-display font-extrabold tracking-tight text-[0.95rem] text-navy-950 whitespace-nowrap">APEX REAL ESTATE VENTURES</div>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-[0.92rem] text-navy-800 font-medium">
+        <li><a href="#easy" class="link-underline">How it works</a></li>
+        <li><a href="#reasons" class="link-underline">Reasons to sell</a></li>
+        <li><a href="#compare" class="link-underline">Compare</a></li>
+        <li><a href="#reviews" class="link-underline">Reviews</a></li>
+        <li><a href="#faq" class="link-underline">FAQ</a></li>
+      </ul>
+      <a href="#offer" class="btn btn-primary !py-2.5 !px-5 !text-[0.85rem]">Get My Offer
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative overflow-hidden pt-32 lg:pt-40 pb-24 lg:pb-32 hero-bg text-white">
+  <div class="noise-dark"></div>
+  <div class="absolute inset-0 opacity-[0.06]" style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/12 text-white/85 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-action-400 animate-pulse"></span>
+        <span class="eyebrow !tracking-[0.2em] text-white/90">Your Trusted Local Home Buyer</span>
+      </div>
+
+      <h1 class="display mt-6 text-[2.7rem] sm:text-[3.4rem] lg:text-[4.2rem] xl:text-[4.6rem] text-white">
+        We buy houses in
+        <span class="block"><span class="h-serif text-action-300 !font-light italic">as-is</span> condition.</span>
+      </h1>
+
+      <p class="mt-7 max-w-xl text-[1.05rem] lg:text-[1.12rem] text-white/75 leading-[1.75]">
+        Get a fair cash offer from a trusted local home buyer. <strong class="text-white font-semibold">No Realtors. No Fees. No Commissions.</strong> Apex is a direct homebuyer specializing in distressed, inherited, and off-market properties.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href="#offer" class="btn btn-primary">
+          Get My Cash Offer
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#easy" class="btn btn-ghost-light">See how it works</a>
+      </div>
+
+      <!-- Trust strip: Google + BBB -->
+      <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <div class="flex items-center gap-3">
+          <span class="text-[20px] font-bold tracking-tight" style="font-family: Arial, sans-serif;">
+            <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+          </span>
+          <span class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          </span>
+          <span class="text-[0.85rem] text-white/55">4.9 rating</span>
+        </div>
+        <span class="hidden sm:inline-block w-px h-5 bg-white/15"></span>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-stretch rounded-md overflow-hidden ring-1 ring-white/10" style="font-family: Arial, sans-serif;">
+            <span class="bg-[#00558c] text-white px-2 py-1 text-[12px] font-extrabold tracking-[0.08em] leading-none flex items-center">BBB</span>
+            <span class="bg-white text-[#00558c] px-1.5 py-1 text-[11px] font-extrabold leading-none flex items-center">A+</span>
+          </span>
+          <span class="text-[0.85rem] text-white/55">Accredited</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Offer card -->
+    <div class="lg:col-span-5 relative">
+      <div class="absolute -top-6 -right-6 w-40 h-40 rounded-full bg-action-400/30 blur-3xl"></div>
+      <div class="absolute -bottom-8 -left-4 w-48 h-48 rounded-full bg-trust-500/40 blur-3xl"></div>
+
+      <div id="offer" class="relative bg-white/95 backdrop-blur-md rounded-3xl p-7 lg:p-8 shadow-[0_40px_80px_-20px_rgba(5,13,26,0.6)] ring-1 ring-white/20">
+        <div class="flex items-center gap-2 text-action-600">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <span class="eyebrow text-action-700">No obligation · 24-hr response</span>
+        </div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
+        <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">Tell us about the property. We'll send back a fair, written cash offer within 24 hours.</p>
+
+        <ul class="mt-6 space-y-3.5">
+          <li class="flex items-start gap-3 text-[0.95rem] text-navy-900">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-action-100 flex items-center justify-center mt-0.5">
+              <svg class="w-3 h-3 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            Takes under a minute
+          </li>
+          <li class="flex items-start gap-3 text-[0.95rem] text-navy-900">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-action-100 flex items-center justify-center mt-0.5">
+              <svg class="w-3 h-3 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            A real offer, not a range
+          </li>
+          <li class="flex items-start gap-3 text-[0.95rem] text-navy-900">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-action-100 flex items-center justify-center mt-0.5">
+              <svg class="w-3 h-3 text-action-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            No fees, no agents, no obligation
+          </li>
+        </ul>
+
+        <button type="button" data-open-offer class="btn btn-primary w-full !justify-center mt-7">
+          Start My Offer
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <p class="text-[0.74rem] text-steel-400 text-center pt-3">We respect your privacy. We will not share your info. Ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EASIEST WAY (3 features) ============ -->
+<section id="easy" class="bg-paper py-24 lg:py-32 relative">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10">
+    <div class="max-w-3xl">
+      <span class="eyebrow text-trust-600">The easiest way</span>
+      <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3.2rem] mt-4 text-navy-950">
+        Sell your house fast.<br/>
+        <span class="h-serif text-steel-500">No surprises, no pressure.</span>
+      </h2>
+      <p class="mt-6 text-[1.02rem] text-steel-500 max-w-2xl leading-[1.75]">
+        At Apex Real Estate Ventures we believe the house selling process should be easier, faster, and more painless. We're ready to give a fair all-cash offer. We buy as-is. You walk away without doing any repairs.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mt-14">
+      <article class="card p-8 lg:p-9">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-700 text-white flex items-center justify-center shadow-navy">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-navy-950 mt-6">Get a fair offer within 24 hours</h3>
+        <p class="text-[0.96rem] text-steel-500 mt-3 leading-[1.7]">
+          Avoid the hassle of listing your house. We can present you with a fair, all-cash offer within as little as 24 hours — no obligations, no fees.
+        </p>
+      </article>
+
+      <article class="card p-8 lg:p-9">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-trust-600 to-trust-500 text-white flex items-center justify-center shadow-navy">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-navy-950 mt-6">Pick the date you want to close</h3>
+        <p class="text-[0.96rem] text-steel-500 mt-3 leading-[1.7]">
+          Selling can be stressful. Have peace of mind by knowing all of your options to sell — we can even handle the repairs for you.
+        </p>
+      </article>
+
+      <article class="card p-8 lg:p-9">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-action-500 to-action-400 text-white flex items-center justify-center shadow-action">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+        </div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-navy-950 mt-6">Sell on your terms. Close quickly.</h3>
+        <p class="text-[0.96rem] text-steel-500 mt-3 leading-[1.7]">
+          Have the flexibility to sell on the date you choose. We can often close in as quick as 7 days with our Cash Offer Program.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REASONS (12 chips, dark) ============ -->
+<section id="reasons" class="bg-navy-950 text-white py-24 lg:py-32 relative overflow-hidden">
+  <div class="noise-dark"></div>
+  <div class="absolute -top-40 -right-40 w-[480px] h-[480px] rounded-full bg-trust-500/15 blur-[120px]"></div>
+  <div class="absolute -bottom-40 -left-40 w-[520px] h-[520px] rounded-full bg-action-500/10 blur-[120px]"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+    <div class="lg:col-span-5 lg:sticky lg:top-32">
+      <span class="eyebrow text-trust-300">Why sellers come to us</span>
+      <h2 class="section-heading text-[2rem] sm:text-[2.4rem] lg:text-[2.6rem] mt-4 text-white whitespace-nowrap">
+        <span class="text-[1.55rem] sm:text-[1.85rem] lg:text-[2rem]">Reasons sellers choose</span><br/>
+        <span class="h-serif text-white/55">a cash offer.</span>
+      </h2>
+      <p class="mt-6 text-[1.02rem] text-white/70 max-w-md leading-[1.75]">
+        We've successfully purchased and sold hundreds of homes. If you want to avoid traditional listing hassle or need to sell fast for any reason, we'll give you an offer within 24 hours. If it makes sense, pick the closing date and start packing.
+      </p>
+      <a href="#offer" class="btn btn-primary mt-8">Get Your Cash Offer
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Inherited Home</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Foreclosure</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Bad Tenants</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Job Loss</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Expensive Repairs</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Relocating</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Damage</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Downsizing</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Retirement</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Divorce</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Bankruptcy</span></div>
+      <div class="reason-chip"><span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="text-[0.92rem]">Health Issues</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section id="compare" class="bg-paper pt-20 lg:pt-28 pb-24 lg:pb-32 relative">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="eyebrow text-trust-600">Side by side</span>
+      <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3rem] mt-4 text-navy-950">
+        The benefits of selling<br/>
+        <span class="h-serif text-steel-500">directly to Apex.</span>
+      </h2>
+      <p class="mt-5 text-[1rem] text-steel-500 leading-[1.75]">
+        No listing fees. No agent commissions. A quick, hassle-free closing. You won't deal with the headache of repairs or renovations — that's our job.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5 mt-14 max-w-4xl mx-auto">
+      <!-- Traditional -->
+      <div class="compare-card bg-gradient-to-b from-steel-900 to-navy-950 p-2 ring-1 ring-white/5">
+        <div class="px-6 pt-6 pb-2">
+          <div class="eyebrow text-white/40">Traditional Process</div>
+          <h3 class="font-display font-extrabold text-white text-[1.5rem] tracking-tighter mt-1">The slow path.</h3>
+        </div>
+        <div class="px-2">
+          <div class="compare-row text-white/85">
+            <span class="x-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></span>
+            <span>Pay 6% plus other fees</span>
+          </div>
+          <div class="compare-row text-white/85">
+            <span class="x-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></span>
+            <span>Unpredictable offers</span>
+          </div>
+          <div class="compare-row text-white/85">
+            <span class="x-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></span>
+            <span>Cleanup and repair stress</span>
+          </div>
+          <div class="compare-row text-white/85">
+            <span class="x-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></span>
+            <span>Showings and open houses</span>
+          </div>
+          <div class="compare-row text-white/85">
+            <span class="x-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></span>
+            <span>Long sales periods, often 2–3+ months</span>
+          </div>
+        </div>
+      </div>
+      <!-- Apex -->
+      <div class="compare-card relative bg-gradient-to-br from-trust-600 via-trust-700 to-navy-900 p-2 ring-1 ring-white/10 shadow-navy">
+        <div class="absolute top-4 right-4 z-10"><span class="badge-best bg-action-400/20 text-action-300 border-action-400/40">Recommended</span></div>
+        <div class="px-6 pt-6 pb-2">
+          <div class="eyebrow text-action-300">Apex Real Estate Ventures</div>
+          <h3 class="font-display font-extrabold text-white text-[1.5rem] tracking-tighter mt-1">The clean path.</h3>
+        </div>
+        <div class="px-2">
+          <div class="compare-row text-white">
+            <span class="ok-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Zero fees to sell your house</span>
+          </div>
+          <div class="compare-row text-white">
+            <span class="ok-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Highest off-market price</span>
+          </div>
+          <div class="compare-row text-white">
+            <span class="ok-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Sell as-is. No cleanup. No repairs.</span>
+          </div>
+          <div class="compare-row text-white">
+            <span class="ok-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Close in as little as 7 days</span>
+          </div>
+          <div class="compare-row text-white">
+            <span class="ok-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>No closing costs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION (sticky split) ============ -->
+<section class="bg-paper pb-24 lg:pb-32 relative">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    <div class="lg:col-span-5 lg:sticky lg:top-32">
+      <span class="eyebrow text-trust-600">Skip the uncertainty</span>
+      <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3rem] mt-4 text-navy-950">
+        Selling to Apex<br/>
+        <span class="h-serif text-steel-500">vs listing with an agent.</span>
+      </h2>
+      <p class="mt-6 text-[1.02rem] text-steel-500 max-w-md leading-[1.75]">
+        Listing works great for a property in perfect condition with a seller who can wait. Traditional buyers may have financing fall through. Inspections, showings, and weeks of stress add up. By the time agent fees and buyer requests come out of your pocket, the actual amount you net is rarely the price you sold for.
+      </p>
+      <p class="mt-5 text-[1.02rem] text-navy-900 max-w-md leading-[1.75] font-medium">
+        We buy directly from homeowners — fast, without the hassle of waiting or the cost of commissions.
+      </p>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="card p-8 lg:p-10">
+        <div class="sol-row">
+          <span class="sol-check"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          <div>
+            <h4 class="font-display font-extrabold text-[1.05rem] text-navy-950 tracking-tight">We'll clean the house</h4>
+            <p class="text-[0.93rem] text-steel-500 mt-1 leading-[1.65]">You don't need to clean up or repair the property. Take what matters and leave the rest — we handle it at our cost.</p>
+          </div>
+        </div>
+        <div class="sol-row">
+          <span class="sol-check"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          <div>
+            <h4 class="font-display font-extrabold text-[1.05rem] text-navy-950 tracking-tight">Sell as-is</h4>
+            <p class="text-[0.93rem] text-steel-500 mt-1 leading-[1.65]">Your house need repairs you don't want to make? Great — we'll do them ourselves after you've moved on.</p>
+          </div>
+        </div>
+        <div class="sol-row">
+          <span class="sol-check"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          <div>
+            <h4 class="font-display font-extrabold text-[1.05rem] text-navy-950 tracking-tight">No commissions, and we cover closing costs</h4>
+            <p class="text-[0.93rem] text-steel-500 mt-1 leading-[1.65]">Our profit comes from fixing the house ourselves — not from charging you. The offer you see is the number that hits your bank account.</p>
+          </div>
+        </div>
+        <div class="sol-row">
+          <span class="sol-check"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          <div>
+            <h4 class="font-display font-extrabold text-[1.05rem] text-navy-950 tracking-tight">Fully confidential and private</h4>
+            <p class="text-[0.93rem] text-steel-500 mt-1 leading-[1.65]">Avoid sharing your information on the MLS, with agents, or with dozens of buyers. Our process is fully private and discreet.</p>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-[0.95rem] text-navy-900 leading-[1.75] font-medium px-2">
+        We'll know quickly if we can help. Unlike selling through an agent, you don't have to wait to see if a buyer can get financing — <span class="h-serif text-action-600">we're ready to buy right now.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE OPTIONS ============ -->
+<section class="bg-navy-950 text-white py-24 lg:py-32 relative overflow-hidden">
+  <div class="noise-dark"></div>
+  <div class="absolute -top-32 left-1/4 w-[520px] h-[520px] rounded-full bg-trust-500/15 blur-[140px]"></div>
+  <div class="absolute -bottom-40 right-0 w-[480px] h-[480px] rounded-full bg-action-500/10 blur-[140px]"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+    <div class="max-w-3xl">
+      <span class="eyebrow text-trust-300">Three paths</span>
+      <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3.2rem] mt-4 text-white">
+        Choosing the right buyer<br/>
+        <span class="h-serif text-white/50">for you.</span>
+      </h2>
+      <p class="mt-6 text-[1.02rem] text-white/65 max-w-2xl leading-[1.75]">
+        When you sell your house locally, there are three options. Two come with friction. One doesn't.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-14">
+      <div class="option-card">
+        <div class="opt-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <div class="eyebrow text-trust-600 mt-5">Option 01</div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-navy-950 mt-2">List with a real estate agent</h3>
+        <p class="text-[0.95rem] text-steel-500 mt-3 leading-[1.7]">From listing to cash in hand can stretch to 6 months or more. Open houses, commissions, inspections, and uncertainty until close.</p>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <div class="eyebrow text-trust-600 mt-5">Option 02</div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-navy-950 mt-2">Sell yourself (FSBO)</h3>
+        <p class="text-[0.95rem] text-steel-500 mt-3 leading-[1.7]">You're doing the agent's job to save the commission — but it costs dozens of hours, plus the expertise gap on negotiation and contracts.</p>
+      </div>
+
+      <div class="option-card featured">
+        <div class="flex items-center justify-between">
+          <div class="opt-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <span class="badge-best">Best fit</span>
+        </div>
+        <div class="eyebrow text-action-300 mt-5">Option 03</div>
+        <h3 class="font-display font-extrabold tracking-tighter text-[1.4rem] text-white mt-2">Sell for cash to Apex</h3>
+        <p class="text-[0.95rem] text-white/75 mt-3 leading-[1.7]">Avoid the listing hassles. Pick your closing date. No obligation to accept our offer. No need to repair anything.</p>
+      </div>
+    </div>
+
+    <p class="mt-12 text-center text-[0.98rem] text-white/65 leading-[1.75] max-w-4xl mx-auto">
+      When you submit the form, <strong class="text-white font-semibold">we'll give you a fair all-cash offer within 24 hours</strong>. The best part: <strong class="text-white font-semibold">we close on your date</strong>. Condition doesn't matter.
+    </p>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="reviews" class="bg-sand py-24 lg:py-32 relative overflow-hidden">
+  <div class="noise"></div>
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
+      <div class="max-w-2xl">
+        <span class="eyebrow text-trust-600">Real clients · real testimonials</span>
+        <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3.2rem] mt-4 text-navy-950">
+          See why we are<br/>
+          <span class="h-serif text-steel-500">a top-rated home buyer.</span>
+        </h2>
+      </div>
+      <div class="flex items-center gap-4 text-navy-800">
+        <span class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        </span>
+        <span class="font-display font-semibold text-[0.95rem]">4.9 <span class="text-steel-400">/ 5</span></span>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6">
+      <!-- Big feature -->
+      <article class="lg:col-span-7 bg-navy-950 text-white rounded-3xl p-9 lg:p-12 relative overflow-hidden shadow-navy">
+        <div class="noise-dark"></div>
+        <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-trust-500/25 blur-3xl"></div>
+        <div class="relative">
+          <svg class="w-10 h-10 text-action-400 mb-6" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0c-1.03-1.094-1.583-2.321-1.583-4.31 0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>
+          <p class="font-serif-display !font-light text-[1.55rem] lg:text-[1.95rem] leading-[1.35] text-white tracking-tight">
+            "We inherited the property and had no idea where to start. Justin walked us through every option without pressure, came back with a fair number, and closed on the date we picked. Honestly, it took the weight off the whole family."
+          </p>
+          <div class="mt-8 flex items-center gap-4">
+            <div>
+              <div class="font-display font-semibold text-white">Eleanor Whitfield</div>
+              <div class="text-[0.85rem] text-white/60">Verified seller · March 14, 2026</div>
+            </div>
+            <div class="ml-auto text-right">
+              <span class="stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="lg:col-span-5 grid gap-6">
+        <article class="card p-7 lg:p-8">
+          <span class="stars mb-4">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          </span>
+          <p class="text-navy-900 text-[0.98rem] leading-[1.7]">"Straightforward team, no gimmicks. They told us exactly what the offer was based on, answered every question, and the wire hit when they said it would. Couldn't ask for cleaner."</p>
+          <div class="mt-5">
+            <div>
+              <div class="font-display font-semibold text-[0.93rem] text-navy-950">Daniel Kowalski</div>
+              <div class="text-[0.78rem] text-steel-500">Verified seller · March 4, 2026</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card p-7 lg:p-8">
+          <span class="stars mb-4">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          </span>
+          <p class="text-navy-900 text-[0.98rem] leading-[1.7]">"After a divorce I needed the house gone — fast, quiet, no listings. Justin handled it with discretion and made the timeline work around me. Genuinely grateful for how he showed up."</p>
+          <div class="mt-5">
+            <div>
+              <div class="font-display font-semibold text-[0.93rem] text-navy-950">Priya Ramaswamy</div>
+              <div class="text-[0.78rem] text-steel-500">Verified seller · February 24, 2026</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="bg-paper py-24 lg:py-32 relative">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <div class="lg:col-span-4">
+      <span class="eyebrow text-trust-600">Answers, up front</span>
+      <h2 class="section-heading text-[2.2rem] sm:text-[2.6rem] lg:text-[3rem] mt-4 text-navy-950">
+        Frequently asked<br/>
+        <span class="h-serif text-steel-500">questions.</span>
+      </h2>
+      <a href="#offer" class="btn btn-primary mt-8">Get My Offer
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="lg:col-span-8 divide-y divide-navy-950/10 border-y border-navy-950/10">
+      <details class="group py-6 cursor-pointer" open>
+        <summary class="flex items-start justify-between gap-6 list-none">
+          <h3 class="font-display font-semibold text-[1.1rem] lg:text-[1.2rem] text-navy-950 tracking-tight">How do you determine your offer price?</h3>
+          <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-navy-950 text-white flex items-center justify-center mt-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </summary>
+        <p class="mt-4 text-[0.96rem] text-steel-500 leading-[1.75] max-w-2xl">
+          We pull recent comparable sales in your exact submarket, assess repair scope with a licensed GC, subtract holding costs and a target margin, and write the offer.
+        </p>
+      </details>
+
+      <details class="group py-6 cursor-pointer">
+        <summary class="flex items-start justify-between gap-6 list-none">
+          <h3 class="font-display font-semibold text-[1.1rem] lg:text-[1.2rem] text-navy-950 tracking-tight">Do you charge any fees or commissions?</h3>
+          <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-navy-950 text-white flex items-center justify-center mt-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </summary>
+        <p class="mt-4 text-[0.96rem] text-steel-500 leading-[1.75] max-w-2xl">
+          Never. No commissions, no closing costs, no junk fees. The offer you see is the number that hits your bank account.
+        </p>
+      </details>
+
+      <details class="group py-6 cursor-pointer">
+        <summary class="flex items-start justify-between gap-6 list-none">
+          <h3 class="font-display font-semibold text-[1.1rem] lg:text-[1.2rem] text-navy-950 tracking-tight">What if the house is in really bad shape?</h3>
+          <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-navy-950 text-white flex items-center justify-center mt-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </summary>
+        <p class="mt-4 text-[0.96rem] text-steel-500 leading-[1.75] max-w-2xl">
+          That's our specialty. Water damage, structural issues, hoarding, fire — we underwrite with those in mind. Don't clean, don't repair, don't hide anything.
+        </p>
+      </details>
+
+      <details class="group py-6 cursor-pointer">
+        <summary class="flex items-start justify-between gap-6 list-none">
+          <h3 class="font-display font-semibold text-[1.1rem] lg:text-[1.2rem] text-navy-950 tracking-tight">How fast can you actually close?</h3>
+          <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-navy-950 text-white flex items-center justify-center mt-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </summary>
+        <p class="mt-4 text-[0.96rem] text-steel-500 leading-[1.75] max-w-2xl">
+          As fast as title can clear — often 7 days for a clean title, up to 21 when probate or lienholders are involved. Need more time? We'll accommodate up to 90 days at no extra cost.
+        </p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA (Walk Away) ============ -->
+<section class="relative bg-navy-950 overflow-hidden">
+  <div class="noise-dark"></div>
+  <div class="absolute inset-0">
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[140%] h-full opacity-[0.05]" style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px); background-size: 100% 56px;"></div>
+  </div>
+  <div class="absolute -top-40 left-1/4 w-[620px] h-[620px] rounded-full bg-trust-500/15 blur-[140px]"></div>
+  <div class="absolute -bottom-40 right-0 w-[520px] h-[520px] rounded-full bg-action-500/10 blur-[140px]"></div>
+
+  <div class="relative mx-auto max-w-5xl px-6 lg:px-10 py-28 lg:py-36 text-center">
+    <span class="eyebrow text-action-300">Sell your house and walk away</span>
+    <h2 class="display text-[2.4rem] sm:text-[3rem] lg:text-[4rem] text-white mt-5 leading-[1.05]">
+      Get your no-obligation offer
+      <span class="h-serif text-action-300">in 24 hours or less.</span>
+    </h2>
+    <p class="mt-7 text-[1.05rem] text-white/70 max-w-2xl mx-auto leading-[1.75]">
+      We help property owners just like you, in all kinds of situations. Divorce, foreclosure, the death of a family member, burdensome rentals, or simply a busy life. If selling has been the thing on your list, today can be the day it leaves.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href="#offer" class="btn btn-primary !text-[1rem] !px-7 !py-4">
+        Request my offer
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#easy" class="btn btn-ghost-light !text-[1rem] !px-7 !py-4">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink text-white/70 relative">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 pt-14 pb-10">
+    <div class="grid lg:grid-cols-12 gap-10 pb-10 border-b border-white/10">
+      <div class="lg:col-span-4">
+        <div class="flex items-center gap-3">
+          <img src="apex_brand_assets/apex-logo.jpg" alt="Apex" class="h-11 w-11 rounded-lg object-contain bg-white p-1"/>
+          <div class="font-display font-extrabold tracking-tight text-white text-[1.05rem] whitespace-nowrap">APEX REAL ESTATE VENTURES</div>
+        </div>
+        <p class="mt-5 max-w-sm text-[0.92rem] leading-[1.75] text-white/60">
+          Apex Real Estate Ventures buys homes directly from owners — quickly, fairly, and on your terms. No agents, no listings, no surprises.
+        </p>
+      </div>
+      <div class="lg:col-span-8">
+        <div class="eyebrow text-white/50 mb-6 text-center">Resources for sellers</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-[0.92rem] text-center">
+          <a href="inherited.html" class="link-underline hover:text-white">Selling an inherited property</a>
+          <a href="divorce.html" class="link-underline hover:text-white">Selling during a divorce</a>
+          <a href="foreclosure.html" class="link-underline hover:text-white">Avoiding foreclosure</a>
+          <a href="tenants.html" class="link-underline hover:text-white">Selling with tenants in place</a>
+          <a href="relocation.html" class="link-underline hover:text-white">Selling before a move</a>
+          <a href="as-is.html" class="link-underline hover:text-white">Selling a home that needs repairs</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-8 text-[0.82rem] text-white/50">
+      <div>© 2026 Apex Real Estate Ventures, LLC. All rights reserved.</div>
+      <div class="flex items-center gap-6">
+        <a href="privacy.html" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Licensing</a>
+        <span class="text-white/30">Equal Housing Opportunity</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ OFFER MODAL ============ -->
+<div id="offer-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 sm:p-6">
+  <div class="absolute inset-0 bg-ink/70 backdrop-blur-sm" data-close-modal></div>
+  <div class="relative bg-white rounded-3xl shadow-[0_40px_80px_-20px_rgba(5,13,26,0.6)] w-full max-w-md p-7 lg:p-8 max-h-[92vh] overflow-y-auto">
+    <button type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-steel-400 hover:text-navy-950 hover:bg-paper transition-colors" data-close-modal aria-label="Close">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="flex items-center gap-2 text-action-600">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+      <span class="eyebrow text-action-700">No obligation · 24-hr response</span>
+    </div>
+    <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
+    <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll send back a fair, written cash offer within 24 hours.</p>
+
+    <form class="mt-5 space-y-3" onsubmit="event.preventDefault();">
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" placeholder="First name" class="field" required />
+        <input type="text" placeholder="Last name" class="field" required />
+      </div>
+      <div class="relative" data-address-autocomplete>
+        <input type="text" placeholder="Property address" class="field" autocomplete="off" data-address-input required />
+        <div class="absolute left-0 right-0 top-full mt-1 bg-white rounded-xl shadow-[0_20px_40px_-12px_rgba(5,13,26,0.25)] ring-1 ring-ink/10 hidden z-10 max-h-72 overflow-y-auto" data-address-suggestions></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-6 gap-3">
+        <input type="text" placeholder="City" class="field sm:col-span-3" required />
+        <input type="text" placeholder="State" class="field sm:col-span-1" maxlength="2" required />
+        <input type="text" placeholder="ZIP" class="field sm:col-span-2" maxlength="5" required />
+      </div>
+      <select class="field appearance-none" required>
+        <option value="" disabled selected>Property type</option>
+        <option>Single-family</option>
+        <option>Multi-family</option>
+        <option>Condo / Townhome</option>
+        <option>Land</option>
+      </select>
+      <select class="field appearance-none" required>
+        <option value="" disabled selected>Reason for selling</option>
+        <option>Inherited property</option>
+        <option>Divorce</option>
+        <option>Foreclosure</option>
+        <option>Tenants in place</option>
+        <option>Relocation / job move</option>
+        <option>Property needs repairs</option>
+        <option>Other</option>
+      </select>
+      <button type="submit" class="btn btn-primary w-full !justify-center mt-2">
+        Get My Offer
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+      <p class="text-[0.74rem] text-steel-400 text-center pt-1">We respect your privacy. We will not share your info. Ever.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+(function() {
+  const modal = document.getElementById('offer-modal');
+  if (!modal) return;
+  const open = () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    const first = modal.querySelector('input,select,textarea');
+    if (first) setTimeout(() => first.focus(), 50);
+  };
+  const close = () => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  };
+  document.querySelectorAll('a[href="#offer"], a[href="index.html#offer"], [data-open-offer]').forEach(el => {
+    el.addEventListener('click', (e) => { e.preventDefault(); open(); });
+  });
+  modal.querySelectorAll('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) close();
+  });
+
+  // Address autocomplete via Mapbox Geocoding
+  const MAPBOX_TOKEN = 'pk.eyJ1IjoianVzdGludG0iLCJhIjoiY21vZjI3N2d3MGg0bjJwcHRhanZwdDQ2NCJ9.RfgDnZ2qbeC_zoKN81ys-A';
+  document.querySelectorAll('[data-address-autocomplete]').forEach(wrap => {
+    const input = wrap.querySelector('[data-address-input]');
+    const list = wrap.querySelector('[data-address-suggestions]');
+    let timer;
+    const hide = () => list.classList.add('hidden');
+    const show = () => list.classList.remove('hidden');
+    const render = (features) => {
+      list.innerHTML = '';
+      if (!features.length) { hide(); return; }
+      features.forEach(f => {
+        const street = ((f.address || '') + ' ' + (f.text || '')).trim();
+        if (!street) return;
+        const ctx = (f.context || []).reduce((acc, c) => { const key = (c.id || '').split('.')[0]; acc[key] = c; return acc; }, {});
+        const city = (ctx.place && ctx.place.text) || (ctx.locality && ctx.locality.text) || (ctx.district && ctx.district.text) || '';
+        const stateRaw = (ctx.region && (ctx.region.short_code || ctx.region.text)) || '';
+        const state = stateRaw.replace(/^US-/i, '').slice(0, 2).toUpperCase();
+        const zip = (ctx.postcode && ctx.postcode.text) || '';
+        const subline = [city, state, zip].filter(Boolean).join(', ');
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'w-full text-left px-4 py-2.5 hover:bg-paper transition-colors block border-b border-ink/5 last:border-b-0';
+        const line1 = document.createElement('div');
+        line1.className = 'text-[0.92rem] text-navy-950';
+        line1.textContent = street;
+        item.appendChild(line1);
+        if (subline) {
+          const line2 = document.createElement('div');
+          line2.className = 'text-[0.78rem] text-steel-500 mt-0.5';
+          line2.textContent = subline;
+          item.appendChild(line2);
+        }
+        item.addEventListener('click', () => {
+          input.value = street;
+          const form = input.closest('form');
+          if (form) {
+            const cityIn = form.querySelector('input[placeholder="City"]');
+            const stateIn = form.querySelector('input[placeholder="State"]');
+            const zipIn = form.querySelector('input[placeholder="ZIP"]');
+            if (cityIn && city) cityIn.value = city;
+            if (stateIn && state) stateIn.value = state;
+            if (zipIn && zip) zipIn.value = zip;
+          }
+          hide();
+        });
+        list.appendChild(item);
+      });
+      show();
+    };
+    input.addEventListener('input', () => {
+      const q = input.value.trim();
+      clearTimeout(timer);
+      if (q.length < 3) { hide(); list.innerHTML = ''; return; }
+      timer = setTimeout(async () => {
+        try {
+          const res = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q)}.json?access_token=${MAPBOX_TOKEN}&country=us&types=address&autocomplete=true&limit=6`);
+          const data = await res.json();
+          render(data.features || []);
+        } catch (e) { hide(); }
+      }, 250);
+    });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) hide(); });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  });
+})();
+</script>
+
+</body>
+</html>
