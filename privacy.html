@@ -239,10 +239,10 @@
     <div data-offer-header>
       <div class="flex items-center gap-2 text-action-600">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-        <span class="eyebrow text-action-700">No obligation · 24-hr response</span>
+        <span class="eyebrow text-action-700">Instant offer · No obligation</span>
       </div>
       <h3 class="font-display font-extrabold tracking-tighter text-[1.65rem] text-navy-950 mt-3">Get My Offer</h3>
-      <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll send back a fair, written cash offer within 24 hours.</p>
+      <p class="text-[0.92rem] text-steel-500 mt-1.5 leading-[1.65]">A few details and we'll show your cash offer range right away.</p>
     </div>
 
     <form class="mt-5 space-y-3" data-offer-form>
@@ -313,7 +313,7 @@
       <div class="hidden" data-success-range>
         <p class="eyebrow text-action-700 mt-6">Estimated cash offer</p>
         <p class="font-display font-extrabold tracking-tighter text-[1.9rem] text-navy-950 mt-2">
-          <span data-range-low></span> – <span data-range-high></span>
+          <span data-range-high></span>
         </p>
         <p class="text-[0.85rem] text-steel-500 mt-3 max-w-sm mx-auto leading-[1.65]">Final offer subject to a quick property review. Schedule a call to lock in your number.</p>
         <a href="#" data-calendar-link class="btn btn-primary mt-5 !justify-center w-full" target="_blank" rel="noopener">
@@ -480,7 +480,6 @@
         if (result.route_to_call) {
           successCall?.classList.remove('hidden');
         } else if (successRange) {
-          successRange.querySelector('[data-range-low]').textContent = fmt(result.range_low);
           successRange.querySelector('[data-range-high]').textContent = fmt(result.range_high);
           successRange.classList.remove('hidden');
         }
