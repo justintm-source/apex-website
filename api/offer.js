@@ -154,6 +154,13 @@ module.exports = async (req, res) => {
     routed_reason: reason,
     out_of_market: outOfMarket,
     // metadata
+    utm_source: data.utm_source || null,
+    utm_medium: data.utm_medium || null,
+    utm_campaign: data.utm_campaign || null,
+    utm_content: data.utm_content || null,
+    utm_term: data.utm_term || null,
+    fbclid: data.fbclid || null,
+    landing_page: data.page || null,
     source: 'apex-website',
     submitted_at: new Date().toISOString(),
   };

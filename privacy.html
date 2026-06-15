@@ -84,6 +84,17 @@
   .field::placeholder { color: rgba(8,20,38,0.4); }
   .field:focus { outline: none; border-color: #2E5CAB; box-shadow: 0 0 0 4px rgba(46,92,171,0.12); }
 </style>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1097602275315371');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1097602275315371&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 </head>
 <body class="bg-paper">
 
@@ -342,6 +353,8 @@
 (function() {
   const modal = document.getElementById('offer-modal');
   if (!modal) return;
+  try { var _q = new URLSearchParams(location.search); ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(function(k){ var v=_q.get(k); if(v) sessionStorage.setItem('attr_'+k, v); }); } catch(e){}
+  window.addEventListener('DOMContentLoaded', function(){ try { var _s = new URLSearchParams(location.search); if (_s.get('offer') === '1' || location.hash === '#start-offer') { open(); } } catch(e){} });
   const open = () => {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -426,6 +439,7 @@
   const CALENDAR_URL = 'https://link.hqflo.com/widget/bookings/home-offer-discovery-call-calendar-ibu8lqyj6';
   document.querySelectorAll('[data-calendar-link]').forEach(a => {
     a.href = CALENDAR_URL || 'mailto:offers@apexrev.com?subject=Schedule%20a%20call';
+    a.addEventListener('click', function(){ if (window.fbq) fbq('trackCustom', 'ScheduleClick'); });
     if (!CALENDAR_URL) a.removeAttribute('target');
   });
 
@@ -479,6 +493,7 @@
       const headerEl = form.parentElement.querySelector('[data-offer-header]');
       const data = { page: location.pathname };
       new FormData(form).forEach((v, k) => { data[k] = v; });
+      try { ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(function(k){ var v = sessionStorage.getItem('attr_'+k); if(v) data[k]=v; }); } catch(e){}
       submitBtn.disabled = true; submitBtn.style.opacity = '0.6';
       if (errorEl) errorEl.classList.add('hidden');
       try {
@@ -488,6 +503,7 @@
         form.classList.add('hidden');
         if (headerEl) headerEl.classList.add('hidden');
         if (successEl) successEl.classList.remove('hidden');
+        if (!result.out_of_market && window.fbq) { fbq('track', 'Lead', { value: Number(result.range_high)||0, currency: 'USD', content_category: data.reason_for_selling||'' }); }
         if (result.out_of_market) {
           successEl?.querySelector('[data-success-outofmarket]')?.classList.remove('hidden');
         } else if (result.route_to_call) {
