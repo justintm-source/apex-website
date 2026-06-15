@@ -31,6 +31,17 @@ const REHAB_PER_SQFT = {
     10: 8,
   };
 
+// Target states (all major cities covered). disclosure:true -> instant offer.
+// disclosure:false (non-disclosure state) -> route to a call. Outside these -> out of market.
+const STATE_ABBR = { CALIFORNIA: 'CA', 'NORTH CAROLINA': 'NC', FLORIDA: 'FL', TEXAS: 'TX' };
+function normState(s) { const u = String(s || '').trim().toUpperCase(); return STATE_ABBR[u] || u; }
+const STATE_RULES = {
+  CA: { disclosure: true },   // -> instant offer
+  NC: { disclosure: true },
+  FL: { disclosure: true },
+  TX: { disclosure: false },  // non-disclosure -> book a call (no instant offer)
+};
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -56,6 +67,8 @@ module.exports = async (req, res) => {
   let zestimate = null;
   let zillowURL = null;
   let realtyData = null;
+  let propLat = null;
+  let propLng = null;
   try {
     const url = `https://zillow.realtyapi.io/pro/byaddress?propertyaddress=${encodeURIComponent(fullAddress)}`;
     const resp = await fetch(url, {
@@ -66,9 +79,25 @@ module.exports = async (req, res) => {
       zillowURL = realtyData?.zillowURL || null;
       const pd = realtyData?.propertyDetails || {};
       zestimate = pd.zestimate || pd.price || pd?.resoFacts?.taxAssessedValue || null;
+      propLat = Number(pd.latitude) || null;
+      propLng = Number(pd.longitude) || null;
     }
   } catch (e) {
     console.error('RealtyAPI error:', e?.message || e);
+  }
+
+  // 1b. Market filter by state. CA/NC/FL -> instant offer. TX (non-disclosure) -> call.
+  // Anything else -> out of market.
+  const propState = normState(state);
+  const stateRule = STATE_RULES[propState];
+  let outOfMarket = false;
+  let forceCall = false;
+  let forceCallReason = null;
+  if (!stateRule) {
+    outOfMarket = true;
+  } else if (!stateRule.disclosure) {
+    forceCall = true;
+    forceCallReason = 'non_disclosure';
   }
 
   // 2. Calculate offer
@@ -81,10 +110,12 @@ module.exports = async (req, res) => {
   let offerHigh = null;
   let rangeLow = null;
   let rangeHigh = null;
-  let routeToCall = false;
-  let reason = null;
+  let routeToCall = forceCall;
+  let reason = forceCallReason;
 
-  if (!zestimate || zestimate <= 0) {
+  if (outOfMarket || routeToCall) {
+    // out of market -> rejection message; non-disclosure / no-coords -> book a call. No instant offer.
+  } else if (!zestimate || zestimate <= 0) {
     routeToCall = true;
     reason = 'no_valuation';
   } else {
@@ -121,6 +152,7 @@ module.exports = async (req, res) => {
     // routing decision
     routed_to_call: routeToCall,
     routed_reason: reason,
+    out_of_market: outOfMarket,
     // metadata
     source: 'apex-website',
     submitted_at: new Date().toISOString(),
@@ -139,6 +171,7 @@ module.exports = async (req, res) => {
   // 4. Respond to frontend
   return res.status(200).json({
     ok: true,
+    out_of_market: outOfMarket,
     route_to_call: routeToCall,
     reason,
     range_low: rangeLow,

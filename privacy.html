@@ -321,6 +321,11 @@
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>
+      <div class="hidden" data-success-outofmarket>
+        <p class="eyebrow text-steel-500 mt-6">Out of area</p>
+        <p class="font-display font-extrabold tracking-tight text-[1.3rem] text-navy-950 mt-2">Sorry, this isn't in our target market right now.</p>
+        <p class="text-[0.92rem] text-steel-500 mt-2 max-w-sm mx-auto leading-[1.65]">We're only buying in select areas at the moment. If that changes, we'll reach out.</p>
+      </div>
       <div class="hidden" data-success-call>
         <h4 class="font-display font-extrabold tracking-tight text-[1.3rem] text-navy-950 mt-5">Got it — thanks!</h4>
         <p class="text-[0.92rem] text-steel-500 mt-2 max-w-sm mx-auto leading-[1.65]">Your property needs a closer look. Schedule a quick call so we can put together a custom offer.</p>
@@ -483,7 +488,9 @@
         form.classList.add('hidden');
         if (headerEl) headerEl.classList.add('hidden');
         if (successEl) successEl.classList.remove('hidden');
-        if (result.route_to_call) {
+        if (result.out_of_market) {
+          successEl?.querySelector('[data-success-outofmarket]')?.classList.remove('hidden');
+        } else if (result.route_to_call) {
           successCall?.classList.remove('hidden');
         } else if (successRange) {
           successRange.querySelector('[data-range-high]').textContent = fmt(result.range_high);
