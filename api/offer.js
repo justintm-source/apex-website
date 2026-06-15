@@ -19,9 +19,17 @@
 //   - else                              → return range to frontend
 
 const REHAB_PER_SQFT = {
-  1: 8,    2: 12,   3: 15,   4: 20,   5: 25,
-  6: 30,   7: 35,   8: 40,   9: 60,   10: 120,
-};
+    1: 120,
+    2: 60,
+    3: 40,
+    4: 35,
+    5: 30,
+    6: 25,
+    7: 20,
+    8: 15,
+    9: 12,
+    10: 8,
+  };
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
