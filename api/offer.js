@@ -160,6 +160,7 @@ module.exports = async (req, res) => {
     utm_content: data.utm_content || null,
     utm_term: data.utm_term || null,
     fbclid: data.fbclid || null,
+    timeline: data.timeline || null,
     landing_page: data.page || null,
     source: 'apex-website',
     submitted_at: new Date().toISOString(),
