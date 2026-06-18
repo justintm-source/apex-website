@@ -31,16 +31,30 @@ const REHAB_PER_SQFT = {
     10: 8,
   };
 
-// Target states (all major cities covered). disclosure:true -> instant offer.
-// disclosure:false (non-disclosure state) -> route to a call. Outside these -> out of market.
-const STATE_ABBR = { CALIFORNIA: 'CA', 'NORTH CAROLINA': 'NC', FLORIDA: 'FL', TEXAS: 'TX' };
-function normState(s) { const u = String(s || '').trim().toUpperCase(); return STATE_ABBR[u] || u; }
-const STATE_RULES = {
-  CA: { disclosure: true },   // -> instant offer
-  NC: { disclosure: true },
-  FL: { disclosure: true },
-  TX: { disclosure: false },  // non-disclosure -> book a call (no instant offer)
+// Markets = ALL states. Disclosure states get an instant offer.
+// Non-disclosure states (sale prices aren't public -> AVM can't comp) -> route to a call.
+const NON_DISCLOSURE = new Set([
+  'AK', 'ID', 'KS', 'LA', 'MS', 'MO', 'MT', 'NM', 'ND', 'TX', 'UT', 'WY',
+]);
+// Full state name -> abbreviation (covers autofill / full-name submissions).
+const STATE_NAME_TO_ABBR = {
+  ALABAMA: 'AL', ALASKA: 'AK', ARIZONA: 'AZ', ARKANSAS: 'AR', CALIFORNIA: 'CA',
+  COLORADO: 'CO', CONNECTICUT: 'CT', DELAWARE: 'DE', 'DISTRICT OF COLUMBIA': 'DC',
+  FLORIDA: 'FL', GEORGIA: 'GA', HAWAII: 'HI', IDAHO: 'ID', ILLINOIS: 'IL',
+  INDIANA: 'IN', IOWA: 'IA', KANSAS: 'KS', KENTUCKY: 'KY', LOUISIANA: 'LA',
+  MAINE: 'ME', MARYLAND: 'MD', MASSACHUSETTS: 'MA', MICHIGAN: 'MI', MINNESOTA: 'MN',
+  MISSISSIPPI: 'MS', MISSOURI: 'MO', MONTANA: 'MT', NEBRASKA: 'NE', NEVADA: 'NV',
+  'NEW HAMPSHIRE': 'NH', 'NEW JERSEY': 'NJ', 'NEW MEXICO': 'NM', 'NEW YORK': 'NY',
+  'NORTH CAROLINA': 'NC', 'NORTH DAKOTA': 'ND', OHIO: 'OH', OKLAHOMA: 'OK',
+  OREGON: 'OR', PENNSYLVANIA: 'PA', 'RHODE ISLAND': 'RI', 'SOUTH CAROLINA': 'SC',
+  'SOUTH DAKOTA': 'SD', TENNESSEE: 'TN', TEXAS: 'TX', UTAH: 'UT', VERMONT: 'VT',
+  VIRGINIA: 'VA', WASHINGTON: 'WA', 'WEST VIRGINIA': 'WV', WISCONSIN: 'WI', WYOMING: 'WY',
 };
+function normState(s) {
+  const u = String(s || '').trim().toUpperCase();
+  if (u.length === 2) return u;
+  return STATE_NAME_TO_ABBR[u] || u;
+}
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -86,16 +100,13 @@ module.exports = async (req, res) => {
     console.error('RealtyAPI error:', e?.message || e);
   }
 
-  // 1b. Market filter by state. CA/NC/FL -> instant offer. TX (non-disclosure) -> call.
-  // Anything else -> out of market.
+  // 1b. Market filter by state. ALL states accepted now.
+  // Non-disclosure state -> book a call (no instant offer). Everything else -> instant offer.
   const propState = normState(state);
-  const stateRule = STATE_RULES[propState];
-  let outOfMarket = false;
+  let outOfMarket = false;   // markets = all states; nothing is out of market anymore
   let forceCall = false;
   let forceCallReason = null;
-  if (!stateRule) {
-    outOfMarket = true;
-  } else if (!stateRule.disclosure) {
+  if (NON_DISCLOSURE.has(propState)) {
     forceCall = true;
     forceCallReason = 'non_disclosure';
   }
